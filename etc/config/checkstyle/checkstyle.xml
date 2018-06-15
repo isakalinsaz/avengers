@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC
+        "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
+        "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+
+<module name="Checker">
+    <property name="severity" value="error"/>
+    <module name="TreeWalker">
+        <module name="ArrayTypeStyle"/>
+        <module name="AnonInnerLength">
+            <property name="max" value="50"/>
+        </module>
+        <module name="AnonInnerLength">
+            <property name="severity" value="ignore"/>
+            <property name="max" value="30"/>
+            <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
+        </module>
+        <module name="DefaultComesLast"/>
+        <module name="ModifierOrder"/>
+        <module name="OuterTypeNumber"/>
+        <module name="OuterTypeFilename"/>
+        <module name="CovariantEquals"/>
+        <module name="EqualsHashCode"/>
+        <module name="OneStatementPerLine"/>
+        <module name="StringLiteralEquality"/>
+        <module name="FallThrough"/>
+        <module name="SimplifyBooleanExpression"/>
+        <module name="IllegalThrows">
+            <property name="illegalClassNames" value="java.lang.Error, java.lang.RuntimeException"/>
+        </module>
+        <module name="SimplifyBooleanReturn"/>
+        <module name="AnnotationUseStyle"/>
+        <module name="UpperEll"/>
+        <module name="NeedBraces"/>
+        <module name="UnusedImports">
+            <property name="processJavadoc" value="true"/>
+        </module>
+        <module name="EmptyStatement"/>
+        <module name="PackageAnnotation"/>
+        <module name="IllegalType">
+            <property name="tokens" value="METHOD_DEF,PARAMETER_DEF,VARIABLE_DEF"/>
+            <property name="format" value="DontCheckForAbstractClasses"/>
+        </module>
+        <module name="MutableException"/>
+        <module name="ParameterNumber">
+            <property name="max" value="5"/>
+            <property name="tokens" value="METHOD_DEF"/>
+        </module>
+        <module name="ParameterNumber">
+            <property name="max" value="10"/>
+            <property name="tokens" value="CTOR_DEF"/>
+        </module>
+        <module name="AvoidNestedBlocks"/>
+        <module name="InnerAssignment"/>
+        <module name="NestedForDepth"/>
+        <module name="NestedIfDepth">
+            <property name="max" value="2"/>
+        </module>
+        <module name="NestedTryDepth"/>
+        <module name="FinalClass"/>
+        <module name="HideUtilityClassConstructor"/>
+        <module name="InterfaceIsType"/>
+        <module name="BooleanExpressionComplexity"/>
+        <module name="ClassFanOutComplexity">
+            <property name="max" value="30"/>
+        </module>
+        <module name="CyclomaticComplexity"/>
+        <module name="NPathComplexity"/>
+        <module name="JavaNCSS">
+            <property name="classMaximum" value="500"/>
+            <property name="fileMaximum" value="750"/>
+        </module>
+        <module name="IllegalInstantiation">
+            <property name="classes"
+                      value="java.lang.Byte,java.lang.Short,java.lang.Character,java.lang.Double,java.lang.Float,java.lang.Boolean,java.lang.Integer,java.lang.Long"/>
+        </module>
+        <module name="SuppressWarnings">
+            <property name="format" value="^boxing$"/>
+        </module>
+        <module name="MissingDeprecated"/>
+        <module name="MissingOverride"/>
+        <module name="RedundantImport"/>
+        <module name="RedundantModifier"/>
+        <module name="RegexpSinglelineJava">
+            <property name="severity" value="ignore"/>
+            <property name="format" value="@Ignore"/>
+            <property name="ignoreComments" value="true"/>
+            <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
+        </module>
+        <module name="RegexpSinglelineJava">
+            <property name="format" value="\.printStacktrace"/>
+            <property name="ignoreComments" value="true"/>
+        </module>
+        <module name="RegexpSinglelineJava">
+            <property name="format" value="System\.exit"/>
+            <property name="ignoreComments" value="true"/>
+        </module>
+        <module name="HiddenField">
+            <property name="ignoreConstructorParameter" value="true"/>
+            <property name="ignoreSetter" value="true"/>
+        </module>
+        <module name="FinalParameters">
+            <property name="tokens" value="CTOR_DEF"/>
+        </module>
+        <!-- SUPPRESSIONS -->
+        <module name="SuppressWithNearbyCommentFilter"/>
+        <module name="SuppressionCommentFilter"/>
+    </module>
+    <module name="SuppressionFilter">
+        <property name="file" value="${project_loc}/etc/config/checkstyle/suppressions.xml"/>
+    </module>
+</module>

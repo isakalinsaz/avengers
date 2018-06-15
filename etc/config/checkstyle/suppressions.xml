@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC
+        "-//Puppy Crawl//DTD Suppressions 1.1//EN"
+        "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
+
+<suppressions>
+    <suppress checks="IllegalThrows" files="MockitoRule.java"/>
+
+    <!-- no checks on generated files -->
+    <suppress checks="." files="Builders.java"/>
+
+    <!-- tests can use autoboxing -->
+    <suppress checks="SuppressWarnings" files=".*Test.java"/>
+
+    <!-- Lombok causes HideUtilityClassConstructor check to issue false-positive results in Entity-Classes and Resource-Classes -->
+    <suppress checks="HideUtilityClassConstructor" files=".*Entity.java"/>
+    <suppress checks="HideUtilityClassConstructor" files=".*Resource.java"/>
+
+</suppressions>

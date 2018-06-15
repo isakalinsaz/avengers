@@ -1,0 +1,92 @@
+wrapper.gradleVersion = '4.7'
+
+ext {
+    applicationVersion = rootProject.version
+}
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'jacoco'
+    apply plugin: 'eclipse'
+    apply plugin: "checkstyle"
+
+    group = 'org.game'
+    version = applicationVersion
+    buildDir = 'target'
+
+    sourceCompatibility = 1.8
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        testCompile("junit:junit:${jUnitVesion}")
+        testCompile("org.mockito:mockito-all:${mockitoVersion}")
+        testCompile("org.assertj:assertj-core:${assertjVersion}")
+    }
+
+    checkstyle {
+        toolVersion = "${checkstyleToolVersion}"
+        sourceSets = [sourceSets.main, sourceSets.test]
+
+        ignoreFailures = false
+        configFile = file("${rootProject.projectDir}/etc/config/checkstyle/checkstyle.xml")
+        configProperties = [
+                'suppressionFile': "${rootProject.projectDir}/etc/config/checkstyle/suppressions.xml",
+                'project_loc'    : file("${rootProject.projectDir}")
+        ]
+    }
+
+    jar {
+        manifest {
+            attributes(
+                    'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+                    'Main-Class': 'org.game.avengers.AvengersApplication'
+            )
+        }
+    }
+
+    jacoco {
+        toolVersion = "${jacocoToolVersion}"
+    }
+
+    jacocoTestReport {
+        // 'dependsOn' is not used here because a coverage report should be generated even if there are test failures
+        // in consequence getting an up-to-date coverage report requires to call 'gradlew test jacocoTestReport'
+        mustRunAfter test
+        doFirst {
+            classDirectories = fileTree(dir: "${buildDir}/classes/java/main/")
+        }
+        reports {
+            xml.setEnabled(true)
+            html.setEnabled(true)
+        }
+        executionData files("${buildDir}/jacoco/test.exec")
+    }
+
+    jacocoTestCoverageVerification {
+        dependsOn jacocoTestReport
+        violationRules {
+            rule {
+                limit {
+                    counter = "INSTRUCTION"
+                    value = "COVEREDRATIO"
+                    minimum = 0.5
+                }
+            }
+            rule {
+                limit {
+                    counter = 'BRANCH'
+                    minimum = 0.3
+                }
+            }
+        }
+    }
+
+    task coverage(dependsOn: [test, jacocoTestCoverageVerification])
+
+    test.finalizedBy check
+    test.finalizedBy coverage
+}
